@@ -1,0 +1,19 @@
+Package: adsdata
+Title: Data and Helpers for the Advanced Data Science Module
+Version: 0.0.0.9000
+Authors@R: 
+    person("Michael", "Buecker", , "michael.buecker@fh-muenster.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-0045-8460"))
+Description: Provides the data sets and helper functions used in the
+    Advanced Data Science module at the Muenster School of Business. The
+    data are simulated from a documented generating process, so analyses
+    can be checked against a known truth.
+License: GPL (>= 3)
+Depends: 
+    R (>= 3.5)
+Imports: 
+    tibble
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
