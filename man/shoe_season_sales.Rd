@@ -13,7 +13,7 @@ A tibble with 839 rows and 29 variables:
 \item{preisklasse}{fct price tier: Einstieg, Mittel, Premium}
 \item{uvp}{dbl recommended retail price, in euro}
 \item{marketing_teur}{dbl marketing budget for the model and season, in thousand euro}
-\item{farbvarianten}{int number of colourways offered}
+\item{farbvarianten}{dbl number of colourways offered}
 \item{haendlerbreite}{dbl number of retailers supplied}
 \item{rabatt_pct}{dbl average trade discount granted, in percent}
 \item{vorgaenger_abv}{dbl sell-through of the predecessor model, in percent}
@@ -27,7 +27,8 @@ wasseraufnahme_pct}{dbl the seventeen laboratory measurements, see \link{shoe_la
 }
 }
 \source{
-Simulated. The generating script is \code{data-raw/shoe_season_sales_load.R}.
+Simulated. The generating scripts are
+\code{data-raw/shoe_season_sales_load.R} and \code{data-raw/labor_erzeugen.R}.
 }
 \usage{
 shoe_season_sales
@@ -39,6 +40,15 @@ methods and carries \strong{two targets on the same row}, so regression and
 classification become comparable on one case.
 }
 \details{
+\strong{The two targets are not independent, and that matters for every model.}
+\code{nachbestellt} is a noised threshold on \code{abverkauf_pct}: the trade reorders
+when sell-through plus noise exceeds 58 percent. That is how the trade
+behaves, but it means \strong{the other target must be excluded} from any model.
+On its own, \code{abverkauf_pct} reaches an AUC of 0.953 for \code{nachbestellt}. A
+model fitted as \code{nachbestellt ~ .} therefore looks excellent and has learnt
+nothing — which makes this data set a good place to meet that mistake under
+supervision rather than in a thesis.
+
 \strong{A row is a model in a season, not an independent case.} Each model
 appears in two to five seasons. A grouped split by \code{modell_id} is therefore
 more defensible than a split by row, and the difference is worth discussing
@@ -65,13 +75,14 @@ each one defensible on its own: master data alone give 0.371, adding the 17
 raw measurements make it \strong{worse} at 0.333 — seventeen parameters for
 signal that sits in four factors — a quality index recovers 0.379, the
 \emph{absolute value} of the price-quality mismatch lifts it to 0.451 because the
-effect points downwards at both ends, logarithms give 0.514, and the
-season interaction 0.716. Naively carrying the predecessor's rate forward
+effect points downwards at both ends, logarithms give 0.514, the
+cushioning-by-line interaction 0.526, and the season-by-line interaction
+0.716. Naively carrying the predecessor's rate forward
 is worse than the mean, at −1.062.
 
 How the quality index is built decides the outcome: summing the four varimax
 factor scores reaches r = 0.845 with the true construct, the first principal
-component only r = 0.484, because PC1 is the trade-off axis rather than
+component only r = 0.444, because PC1 is the trade-off axis rather than
 overall quality. For the classification target, AUC runs 0.774 on master
 data, 0.761 with raw measurements and 0.828 with constructed features.
 

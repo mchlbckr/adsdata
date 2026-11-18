@@ -20,8 +20,8 @@ A tibble with 260 rows and 20 variables:
 \item{nahtfestigkeit_n}{dbl seam strength, in newtons}
 \item{sohlenhaerte_shore}{dbl midsole hardness, in Shore A}
 \item{gewicht_g}{dbl mass of one shoe, in grams}
-\item{torsionssteif_nm}{dbl torsional stiffness, in newton metres per degree}
-\item{biegesteif_nm}{dbl forefoot bending stiffness, in newton metres per degree}
+\item{torsionssteif_nm}{dbl torsional stiffness, in newton metres}
+\item{biegesteif_nm}{dbl forefoot bending stiffness, in newton metres}
 \item{fersenkappe_n}{dbl heel counter rigidity, in newtons}
 \item{schafthoehe_mm}{dbl collar height above the footbed, in millimetres}
 \item{atmungsaktiv_cfm}{dbl air permeability, in cubic feet per minute}
@@ -30,7 +30,8 @@ A tibble with 260 rows and 20 variables:
 }
 }
 \source{
-Simulated. The generating script is \code{data-raw/shoe_lab_tests_load.R}.
+Simulated. The generating scripts are \code{data-raw/shoe_lab_tests_load.R}
+and \code{data-raw/labor_erzeugen.R}, which holds the loading matrix.
 }
 \usage{
 shoe_lab_tests
@@ -47,9 +48,15 @@ analysis can be checked against a known truth rather than merely believed.
 
 \strong{Four latent factors} produce the seventeen measurements: cushioning
 (\emph{Daempfung}), durability (\emph{Haltbarkeit}), stability (\emph{Stabilitaet}) and
-climate (\emph{Klima}). Factor scores differ by product line in profile, not in
-level. Each measurement carries 45 percent unique residual variance, so the
-factors are recoverable but not trivially so.
+climate (\emph{Klima}). Factor scores differ by product line both in profile and
+in level: the line explains 58 percent of the variance of the quality
+composite, which is why \code{linie} carries real predictive weight in
+\link{shoe_season_sales} and why the clusters recover the lines at all.
+
+Each measurement carries a residual term with standard deviation 0.45 on the
+factor scale, which works out to a \strong{mean uniqueness of 0.22} — about 22
+percent unique variance per measurement, not 45. The factors are therefore
+recoverable, but not trivially so.
 
 \strong{Two cross-loadings are deliberate:} \code{sohlenhaerte_shore} and \code{gewicht_g}
 load on durability \emph{and} stability. Without them the factor solution would

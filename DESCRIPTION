@@ -17,3 +17,9 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
+Suggests: 
+    cluster,
+    dplyr,
+    pROC,
+    psych,
+    testthat

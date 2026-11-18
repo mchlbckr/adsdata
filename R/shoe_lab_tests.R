@@ -20,8 +20,8 @@
 #'   \item{nahtfestigkeit_n}{dbl seam strength, in newtons}
 #'   \item{sohlenhaerte_shore}{dbl midsole hardness, in Shore A}
 #'   \item{gewicht_g}{dbl mass of one shoe, in grams}
-#'   \item{torsionssteif_nm}{dbl torsional stiffness, in newton metres per degree}
-#'   \item{biegesteif_nm}{dbl forefoot bending stiffness, in newton metres per degree}
+#'   \item{torsionssteif_nm}{dbl torsional stiffness, in newton metres}
+#'   \item{biegesteif_nm}{dbl forefoot bending stiffness, in newton metres}
 #'   \item{fersenkappe_n}{dbl heel counter rigidity, in newtons}
 #'   \item{schafthoehe_mm}{dbl collar height above the footbed, in millimetres}
 #'   \item{atmungsaktiv_cfm}{dbl air permeability, in cubic feet per minute}
@@ -35,9 +35,15 @@
 #'
 #' **Four latent factors** produce the seventeen measurements: cushioning
 #' (*Daempfung*), durability (*Haltbarkeit*), stability (*Stabilitaet*) and
-#' climate (*Klima*). Factor scores differ by product line in profile, not in
-#' level. Each measurement carries 45 percent unique residual variance, so the
-#' factors are recoverable but not trivially so.
+#' climate (*Klima*). Factor scores differ by product line both in profile and
+#' in level: the line explains 58 percent of the variance of the quality
+#' composite, which is why `linie` carries real predictive weight in
+#' [shoe_season_sales] and why the clusters recover the lines at all.
+#'
+#' Each measurement carries a residual term with standard deviation 0.45 on the
+#' factor scale, which works out to a **mean uniqueness of 0.22** — about 22
+#' percent unique variance per measurement, not 45. The factors are therefore
+#' recoverable, but not trivially so.
 #'
 #' **Two cross-loadings are deliberate:** `sohlenhaerte_shore` and `gewicht_g`
 #' load on durability *and* stability. Without them the factor solution would
@@ -57,5 +63,6 @@
 #' The factor scores and the loading matrix are **not** part of the package.
 #' Recovering them is the exercise.
 #'
-#' @source Simulated. The generating script is `data-raw/shoe_lab_tests_load.R`.
+#' @source Simulated. The generating scripts are `data-raw/shoe_lab_tests_load.R`
+#'   and `data-raw/labor_erzeugen.R`, which holds the loading matrix.
 "shoe_lab_tests"
