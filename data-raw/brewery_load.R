@@ -70,6 +70,11 @@ brewery_demand <- d$kunden %>%
   left_join(tr, by = "kunde_id") %>%
   left_join(ziel, by = "kunde_id") %>%
   mutate(hl_ziel = coalesce(hl_ziel, 0)) %>%
+  ## `bestellmonate` faellt raus: `bestellfrequenz` ist exakt bestellmonate/21.
+  ## In `lm(hl_ziel ~ .)` bekommt dann eine der beiden einen stummen
+  ## NA-Koeffizienten - ein Raetsel, das nichts lehrt, was die fehlende
+  ## Referenzkategorie der Dummys nicht besser lehrt.
+  select(-bestellmonate) %>%
   filter(!is.na(hl_monat)) %>%
   mutate(betriebsart = factor(betriebsart), region = factor(region)) %>%
   tibble::as_tibble()

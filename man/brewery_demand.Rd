@@ -5,7 +5,7 @@
 \alias{brewery_demand}
 \title{Quarterly beer demand per hospitality customer}
 \format{
-A tibble with 900 rows and 21 variables:
+A tibble with 900 rows and 20 variables:
 \describe{
 \item{kunde_id}{chr customer identifier, joins to \link{brewery_orders}}
 \item{betriebsart}{fct type of business: Kneipe, Restaurant, Bar, Biergarten, Hotel}
@@ -20,10 +20,9 @@ A tibble with 900 rows and 21 variables:
 \item{alkfrei_ant}{dbl share of alcohol-free beer, by volume}
 \item{rabatt_ant}{dbl volume-weighted mean discount granted}
 \item{bestelltage}{int number of distinct days on which the customer ordered}
-\item{bestellmonate}{int number of distinct months with at least one order}
 \item{liter_bestellung}{dbl mean litres per order}
 \item{letzter_abstand}{int days between the last order and the end of the history}
-\item{bestellfrequenz}{dbl \code{bestellmonate} divided by 21}
+\item{bestellfrequenz}{dbl share of the 21 history months with at least one order}
 \item{sais_amp}{dbl seasonal amplitude: summer volume over winter volume}
 \item{trend}{dbl slope of a linear fit through the monthly volumes}
 \item{letzte3}{dbl mean volume of the last three months, in hectolitres}
