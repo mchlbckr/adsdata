@@ -16,10 +16,11 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 8.0.0
 Suggests: 
     cluster,
     dplyr,
     pROC,
     psych,
+    rpart,
     testthat
+Config/roxygen2/version: 8.1.1
