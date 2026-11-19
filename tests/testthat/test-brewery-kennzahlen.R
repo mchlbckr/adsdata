@@ -45,7 +45,7 @@ test_that("brewery_demand: die naiven Fortschreibungen scheitern", {
 })
 
 test_that("brewery_demand: letzter_abstand traegt allein fast nichts", {
-  # Leckagekandidat: schwach fuer sich, sichtbar in der Wichtigkeit.
+  # Leckagekandidat: schwach für sich, sichtbar in der Wichtigkeit.
   expect_equal(kreuz(function(a, e) predict(lm(hl_ziel ~ letzter_abstand, a), e)),
                0.028, tolerance = 0.01)
 })

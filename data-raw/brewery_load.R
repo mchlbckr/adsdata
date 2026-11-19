@@ -1,21 +1,21 @@
 ## Erzeugt `brewery_orders` und `brewery_demand`: die Brauerei-Welt
-## "Fhoenix Braeu" als VORLESUNGSBEISPIEL fuer die Regression.
+## "Fhoenix Braeu" als VORLESUNGSBEISPIEL für die Regression.
 ##
-##   brewery_orders  48.259 Bestellzeilen ueber 24 Monate
+##   brewery_orders  48.259 Bestellzeilen über 24 Monate
 ##   brewery_demand     900 Kunden, ein Fall je Betrieb -> Regression
 ##
 ## Arbeitsteilung seit dem 19.11.2026: Die Schuhe tragen die Klassifikation
 ## (`shoe_season_sales$nachbestellt`), die Brauerei die Regression. Vorher lagen
-## beide Zielgroessen auf derselben Schuhzeile; die Vorlesung zeigte damit elf
+## beide Zielgrößen auf derselben Schuhzeile; die Vorlesung zeigte damit elf
 ## Kapitel lang eine einzige Welt und nie, wie aus Bewegungsdaten ueberhaupt
 ## eine Analysetabelle entsteht.
 ##
-## Die Aggregation ist Zeile fuer Zeile aus `ana2_brauerei.R` uebernommen, damit
+## Die Aggregation ist Zeile für Zeile aus `ana2_brauerei.R` uebernommen, damit
 ## die dort geprueften Kennzahlen gelten: R2 0,597 (lineares Modell) gegen
 ## -2,306 der naiven Fortschreibung, Leckagekandidat `letzter_abstand`.
 ##
 ## `segment_wahr` wird NICHT ausgeliefert. Die Spalte ist die eingebaute
-## Wahrheit der Segmentierung; sie gehoert dem Generator, nicht den Studierenden.
+## Wahrheit der Segmentierung; sie gehört dem Generator, nicht den Studierenden.
 suppressPackageStartupMessages(library(dplyr))
 source(file.path("data-raw", "brauerei_erzeugen.R"))
 d <- erzeuge_brauerei()
@@ -70,9 +70,9 @@ brewery_demand <- d$kunden %>%
   left_join(tr, by = "kunde_id") %>%
   left_join(ziel, by = "kunde_id") %>%
   mutate(hl_ziel = coalesce(hl_ziel, 0)) %>%
-  ## `bestellmonate` faellt raus: `bestellfrequenz` ist exakt bestellmonate/21.
+  ## `bestellmonate` fällt raus: `bestellfrequenz` ist exakt bestellmonate/21.
   ## In `lm(hl_ziel ~ .)` bekommt dann eine der beiden einen stummen
-  ## NA-Koeffizienten - ein Raetsel, das nichts lehrt, was die fehlende
+  ## NA-Koeffizienten - ein Rätsel, das nichts lehrt, was die fehlende
   ## Referenzkategorie der Dummys nicht besser lehrt.
   select(-bestellmonate) %>%
   filter(!is.na(hl_monat)) %>%
@@ -95,7 +95,7 @@ stopifnot(
 
 ## `usethis` ist nicht ueberall installiert; die Wirkung von use_data() ist
 ## genau dieses save(). Ohne den Zweig bricht ein Neuaufbau auf einem Rechner
-## ohne usethis ab, und das faellt erst auf, wenn man die Daten braucht.
+## ohne usethis ab, und das fällt erst auf, wenn man die Daten braucht.
 ablegen <- function(name) {
   if (requireNamespace("usethis", quietly = TRUE)) {
     do.call(usethis::use_data, list(as.name(name), overwrite = TRUE))
